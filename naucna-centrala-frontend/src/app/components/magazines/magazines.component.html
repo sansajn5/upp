@@ -1,0 +1,8 @@
+
+<div class="jumbotron"> 
+  <div class="magazine" *ngFor="let magazine of magazines">
+    <h3>{{magazine.name}}</h3>
+    <h3><b>{{magazine.price}}$</b></h3>
+    <button class="btn btn-primary" (click)=publish(magazine.id)>Publish work</button>
+  </div>
+</div>

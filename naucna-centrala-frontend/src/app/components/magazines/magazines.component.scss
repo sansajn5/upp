@@ -1,0 +1,16 @@
+.jumbotron {
+    display:flex;
+    justify-content: flex-start;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.magazine {
+    border: 2px solid gray;
+    border-radius: 10px;
+    width :30%;
+    height: 20rem;
+    margin: 2rem;
+    padding: 1rem;
+    
+}
