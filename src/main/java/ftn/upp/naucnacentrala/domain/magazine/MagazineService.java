@@ -14,4 +14,8 @@ public class MagazineService {
     public List<Magazine> getAllMagazines() {
         return magazineRepository.findAll();
     }
+
+    public String getMagazineNameFromId(final Long id) {
+        return magazineRepository.getOne(id).getName();
+    }
 }

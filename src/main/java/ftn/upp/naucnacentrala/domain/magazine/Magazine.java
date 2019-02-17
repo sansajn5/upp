@@ -8,6 +8,8 @@ import ftn.upp.naucnacentrala.domain.user.User;
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -20,6 +22,11 @@ public class Magazine {
 
     @NotEmpty
     private String name;
+
+    @NotNull
+    private boolean openAccess;
+
+    private String coauthors;
 
     private int ISSN;
 
@@ -44,16 +51,22 @@ public class Magazine {
     @JsonIgnore
     private User mainEditor;
 
+
+
     public Magazine(
         final String name,
         final double price,
         final User mainEditor,
-        final Set<ScientificField> scientificFields
+        final Set<ScientificField> scientificFields,
+        final String coauthors,
+        final boolean openAccess
     ) {
         this.name = name;
         this.price = price;
         this.mainEditor = mainEditor;
         this.scientificFields = scientificFields;
+        this.coauthors = coauthors;
+        this.openAccess = openAccess;
     }
 
     public Magazine() {
@@ -116,4 +129,19 @@ public class Magazine {
         this.mainEditor = mainEditor;
     }
 
+    public String getCoauthors() {
+        return coauthors;
+    }
+
+    public void setCoauthors(String coauthors) {
+        this.coauthors = coauthors;
+    }
+
+    public boolean isOpenAccess() {
+        return openAccess;
+    }
+
+    public void setOpenAccess(boolean openAccess) {
+        this.openAccess = openAccess;
+    }
 }

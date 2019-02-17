@@ -1,0 +1,21 @@
+<h2>Enter new article data</h2>
+
+<form #f="ngForm">
+  <div *ngFor="let field of formFields" >
+    <div class="labelinput">
+        <label for={{field.id}}>{{field.label}}</label>
+
+        <input type="text" name={{field.id}} ngModel  *ngIf="field.type.name=='string'" >
+        <input type="checkbox" name={{field.id}} ngModel  *ngIf="field.type.name=='boolean'">
+        <input type="number" name={{field.id}} ngModel  *ngIf="field.type.name=='long'">
+        <select name="field.id" *ngIf="field.type.name=='enum'">
+          <option *ngFor="let val of enumValues" value={{val}}>
+            {{field.type.values[val]}}
+          </option>
+        </select>
+    </div>
+    
+  </div>
+  <button class="btn btn-primary" (click)="submit(f.value, f)"> Submit </button>
+
+</form>

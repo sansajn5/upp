@@ -1,0 +1,6 @@
+<ul class="tasklist" *ngFor="let task of tasks">
+  <li>
+    {{task.taskName}} <button class="btn btn-primary" (click)="executeTask(task.taskId)">Execute task</button>
+  </li>
+</ul>
+

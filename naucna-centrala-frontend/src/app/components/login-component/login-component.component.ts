@@ -18,12 +18,12 @@ export class LoginComponent implements OnInit {
   private taskId;
 
   ngOnInit() {
-    this.processService.startProcess().subscribe( (res : any) =>{
-      console.log(res);
-      this.taskId = res.taskId;
-      this.formFields = res.formFields;
-      console.log(this.formFields);
-    })
+    // this.processService.startProcess().subscribe( (res : any) =>{
+    //   console.log(res);
+    //   this.taskId = res.taskId;
+    //   this.formFields = res.formFields;
+    //   console.log(this.formFields);
+    // })
   }
 
   login(value, form) {

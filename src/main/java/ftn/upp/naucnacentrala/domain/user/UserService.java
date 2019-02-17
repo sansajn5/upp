@@ -18,14 +18,16 @@ public class UserService {
         ArrayList<User> users = new ArrayList<User>(userRepository.findAll());
 
         for(User user: users){
-            if (username.equals(user.getEmail())){
-                if(password.equals(user.getPassword())){
-                    LoginService.currentUserId = user.getId();
-                    return true;
-                }
+            if (username.equals(user.getEmail()) && password.equals(user.getPassword())){
+                LoginService.currentUserId = user.getId();
+                return true;
             }
         }
         return false;
+    }
+
+    public User findById(final Long id) {
+        return userRepository.getOne(id);
     }
 
 }

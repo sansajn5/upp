@@ -63,7 +63,7 @@ public class AuthController {
         runtimeService.setVariable(processInstanceId, "registerData", dto);
 
         formService.submitTaskForm(taskId, map);
-        return new ResponseEntity<TaskDto>(new TaskDto(task.getId(), task.getName()),HttpStatus.OK);
+        return new ResponseEntity<TaskDto>(new TaskDto(task.getId(), task.getName(), ""),HttpStatus.OK);
     }
 
 

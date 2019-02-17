@@ -83,14 +83,18 @@ public class DataLoader implements ApplicationRunner {
 			"Politikin Zabavnik",
 			299.0,
 			userRepository.findByEmail("fpetrovic@ymail.com"),
-			s
+			s,
+			null,
+			true
 		);
 
 		final Magazine second = new Magazine(
 			"Forbes",
 			1199.0,
-			userRepository.findByEmail("fpetrovic@ymail.com"),
-			s
+			userRepository.findByEmail("jane@gmail.com"),
+			s,
+			null,
+			false
 		);
 
 		magazineRepository.save(first);

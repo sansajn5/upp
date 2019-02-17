@@ -14,6 +14,25 @@ export class ProcessService {
     return this.http.get(this.appUrl+'process/start/' + magazineId);
   }
 
+  getTasks() {
+    return this.http.get(this.appUrl+'process/tasks');
+  }
+
+  getTask(taskId: any) {
+    return this.http.get(this.appUrl+'process/'+ taskId);
+  }
+
+  getTaskForm(taskId:any) {
+    return this.http.get(this.appUrl+'process/taskForm/'+ taskId);
+  }
+
+  submitTask(body:any, taskId:any) {
+
+      return this.http.post(this.appUrl.concat("process/submitTask/" + taskId),body);
+
+  }
+
+
   getNextProcess(taskId: string) {
     return this.http.get(this.appUrl+'process/getNext');
   }

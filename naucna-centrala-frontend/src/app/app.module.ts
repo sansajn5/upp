@@ -10,6 +10,10 @@ import { UserService } from './services/user.service';
 import { RegisterComponent } from './components/register/register.component';
 import { MagazinesComponent } from './components/magazines/magazines.component';
 import { MagazineService } from './services/magazine-service.service';
+import { HeaderComponent } from './components/header/header.component';
+import { TasksComponent } from './components/tasks/tasks.component';
+import { ScientificWorkSubmissionComponent } from './components/scientificWorkSubmission/scientificWorkSubmission.component';
+import { ScientificWorkCheckComponent } from './components/scientificWorkCheck/scientificWorkCheck.component';
 
 
 @NgModule({
@@ -17,7 +21,11 @@ import { MagazineService } from './services/magazine-service.service';
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MagazinesComponent
+    MagazinesComponent,
+    HeaderComponent,
+    TasksComponent,
+    ScientificWorkSubmissionComponent,
+    ScientificWorkCheckComponent
   ],
   imports: [
     BrowserModule,
