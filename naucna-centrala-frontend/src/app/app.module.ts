@@ -14,6 +14,10 @@ import { HeaderComponent } from './components/header/header.component';
 import { TasksComponent } from './components/tasks/tasks.component';
 import { ScientificWorkSubmissionComponent } from './components/scientificWorkSubmission/scientificWorkSubmission.component';
 import { ScientificWorkCheckComponent } from './components/scientificWorkCheck/scientificWorkCheck.component';
+import { ChooseReviewersComponent } from './components/chooseReviewers/chooseReviewers.component';
+import { ReviewComponent } from './components/review/review.component';
+import { EvaluationComponent } from './components/evaluation/evaluation.component';
+import { CorrectAndCommentComponent } from './components/correctAndComment/correctAndComment.component';
 
 
 @NgModule({
@@ -25,7 +29,11 @@ import { ScientificWorkCheckComponent } from './components/scientificWorkCheck/s
     HeaderComponent,
     TasksComponent,
     ScientificWorkSubmissionComponent,
-    ScientificWorkCheckComponent
+    ScientificWorkCheckComponent,
+    ChooseReviewersComponent,
+    ReviewComponent,
+    EvaluationComponent,
+    CorrectAndCommentComponent
   ],
   imports: [
     BrowserModule,

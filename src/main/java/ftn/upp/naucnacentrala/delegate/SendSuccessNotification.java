@@ -9,22 +9,20 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 @Component
-public class SendFailureNotification implements JavaDelegate {
-
-    @Autowired
-    private MagazineRepository magazineRepository;
-
+public class SendSuccessNotification implements JavaDelegate {
     @Autowired
     private NotificationRepository notificationRepository;
 
     @Override
     public void execute(DelegateExecution execution) throws Exception {
-        System.out.println("Creating failure notification...");
+        System.out.println("Creating success notification...");
 
         final Long recieverId = Long.parseLong((String)execution.getVariable("userId"));
 
-        Notification notification = new Notification("Author is notified that his work was not accepted", recieverId);
-        System.out.println("Sending failure notification...");
+
+
+        Notification notification = new Notification("Your work is accepted!", recieverId);
+        System.out.println("Sending success notification...");
         notificationRepository.save(notification);
 
         System.out.println("Notification with id: " + notification.getId() + " is sent!");

@@ -120,8 +120,23 @@ public class ProcessController {
             case "ScientificWork submission":
                 path = "{ \"path\": \"scientificWork/submit\" }";
                 break;
+            case "Re-submit" :
+                path = "{ \"path\": \"scientificWork/submit\" }";
+                break;
             case "ScientificWork check":
                 path = "{ \"path\": \"scientificWork/check\" }";
+                break;
+            case "SelectReviewers" :
+                path = "{ \"path\": \"scientificWork/reviewers\" }";
+                break;
+            case "Review" :
+                path = "{ \"path\": \"scientificWork/review\" }";
+                break;
+            case "ScientificFieldEditor evaluates work" :
+                path = "{ \"path\": \"scientificWork/evaluation\" }";
+                break;
+            case "Correct and comment" :
+                path = "{ \"path\": \"scientificWork/correctAndComment\" }";
                 break;
             default:
         }
@@ -146,31 +161,13 @@ public class ProcessController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         }
 
+
+
         TaskFormData tfd = formService.getTaskFormData(task.getId());
         List<FormField> properties = tfd.getFormFields();
         FormFieldsDto ffd = new FormFieldsDto(task.getId(), properties);
 
         return new ResponseEntity<>(ffd,HttpStatus.OK);
-    }
-
-
-
-
-    @GetMapping(path = "/getNext")
-    public TaskDto getNextTask() {
-        try{
-            Task task =  taskService.createTaskQuery().processInstanceId(pi.getId()).list().get(0);
-            if(task!=null){
-                System.out.println(task.getName());
-                return new TaskDto(task.getId(), task.getName(), "");
-            }
-        } catch( Exception e) {
-            System.out.println("Nema sledeceg taska");
-            return new TaskDto(null,"", "");
-        }
-
-
-        return null;
     }
 
     @PostMapping("submitTask/{taskId}")
@@ -190,6 +187,27 @@ public class ProcessController {
         }
 
         Map<String,Object> map = new HashMap<>();
+
+//        List<String> reviewers = new ArrayList<String>();
+//        boolean reviewersPresent = false;
+//
+//        for(FormSubmissionDto f: formData) {
+//            if( f.getFieldId().equals("reviewerOneId")){
+//                reviewers.add(f.getFieldValue());
+//                reviewersPresent=true;
+//            }
+//            if( f.getFieldId().equals("reviewerTwoId")){
+//                reviewers.add(f.getFieldValue());
+//                reviewersPresent=true;
+//            }
+//            map.put(f.getFieldId(),f.getFieldValue());
+//        }
+//
+//        if(!reviewersPresent){
+//            runtimeService.setVariables(task.getProcessInstanceId(), map);
+//        } else {
+//            runtimeService.setVariable(task.getProcessInstanceId(),"reviewers", reviewers);
+//        }
 
         for(FormSubmissionDto f: formData) {
             map.put(f.getFieldId(),f.getFieldValue());
@@ -218,4 +236,22 @@ public class ProcessController {
 //
 //        return new FormFieldsDto(task.getId(), pi.getId(), properties);
 //    }
+
+//    @GetMapping(path = "/getNext")
+//    public TaskDto getNextTask() {
+//        try{
+//            Task task =  taskService.createTaskQuery().processInstanceId(pi.getId()).list().get(0);
+//            if(task!=null){
+//                System.out.println(task.getName());
+//                return new TaskDto(task.getId(), task.getName(), "");
+//            }
+//        } catch( Exception e) {
+//            System.out.println("Nema sledeceg taska");
+//            return new TaskDto(null,"", "");
+//        }
+//
+//
+//        return null;
+//    }
+
 }
