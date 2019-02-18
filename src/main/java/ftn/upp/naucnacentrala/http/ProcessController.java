@@ -188,28 +188,22 @@ public class ProcessController {
 
         Map<String,Object> map = new HashMap<>();
 
-//        List<String> reviewers = new ArrayList<String>();
-//        boolean reviewersPresent = false;
-//
-//        for(FormSubmissionDto f: formData) {
-//            if( f.getFieldId().equals("reviewerOneId")){
-//                reviewers.add(f.getFieldValue());
-//                reviewersPresent=true;
-//            }
-//            if( f.getFieldId().equals("reviewerTwoId")){
-//                reviewers.add(f.getFieldValue());
-//                reviewersPresent=true;
-//            }
-//            map.put(f.getFieldId(),f.getFieldValue());
-//        }
-//
-//        if(!reviewersPresent){
-//            runtimeService.setVariables(task.getProcessInstanceId(), map);
-//        } else {
-//            runtimeService.setVariable(task.getProcessInstanceId(),"reviewers", reviewers);
-//        }
-
         for(FormSubmissionDto f: formData) {
+
+            if(f.getFieldId().equals("review")){
+                System.out.println("Nasao review");
+
+                List<String> reviews =
+                    (List<String>)runtimeService.getVariable(task.getProcessInstanceId(), "reviews");
+                if(reviews == null){
+                    reviews = new ArrayList<>();
+                    runtimeService.setVariable(task.getProcessInstanceId(), "reviews", reviews);
+                }
+                reviews.add(f.getFieldValue());
+                runtimeService.setVariable(task.getProcessInstanceId(), "reviews", reviews);
+                continue;
+            }
+
             map.put(f.getFieldId(),f.getFieldValue());
         }
 
@@ -227,31 +221,50 @@ public class ProcessController {
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-//    @GetMapping(path = "/getRegisterForm")
-//    public FormFieldsDto getRegisterForm() {
-//        Task task = taskService.createTaskQuery().processInstanceId(pi.getId()).list().get(0);
-//        TaskFormData tfd = formService.getTaskFormData(task.getId());
-//
-//        List<FormField> properties = tfd.getFormFields();
-//
-//        return new FormFieldsDto(task.getId(), pi.getId(), properties);
-//    }
+    @PostMapping("/task/chooseReviewers/{taskId}")
+    public ResponseEntity<?> submitTask2(
+        @PathVariable String taskId,
+        @RequestBody Map<String, Object> form
+    ) {
 
-//    @GetMapping(path = "/getNext")
-//    public TaskDto getNextTask() {
-//        try{
-//            Task task =  taskService.createTaskQuery().processInstanceId(pi.getId()).list().get(0);
-//            if(task!=null){
-//                System.out.println(task.getName());
-//                return new TaskDto(task.getId(), task.getName(), "");
-//            }
-//        } catch( Exception e) {
-//            System.out.println("Nema sledeceg taska");
-//            return new TaskDto(null,"", "");
-//        }
-//
-//
-//        return null;
-//    }
+        System.out.println("SADSADASDSADASASDASD");
+        User user = userService.findById(LoginService.currentUserId);
+
+        Task task = taskService.createTaskQuery()
+            .taskId(taskId)
+            .active()
+            .taskAssignee(user.getId().toString())
+            .list().get(0);
+        if(task == null) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+
+        for(String s : form.keySet()){
+            System.out.println(s);
+        }
+
+        if(form.get("review") != null) {
+            System.out.println("Nasao review");
+            List<Map<String, Object>> reviews =
+                (List<Map<String, Object>>)runtimeService.getVariable(task.getProcessInstanceId(), "reviews");
+
+            System.out.println("Pre dodavanja");
+            reviews.add((Map<String, Object>) form.get("review"));
+            runtimeService.setVariable(task.getProcessInstanceId(), "reviews", reviews);
+        }
+        runtimeService.setVariables(task.getProcessInstanceId(), form);
+
+        Map<String,Object> map2 = runtimeService.getVariables(task.getProcessInstanceId());
+
+        for(String key: map2.keySet()) {
+            System.out.println(key);
+            System.out.println("\t"+map2.get(key));
+        }
+
+        taskService.complete(taskId);
+
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
 
 }

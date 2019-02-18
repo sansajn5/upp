@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { ProcessService } from 'src/app/services/process-service.service';
 import { ActivatedRoute } from '@angular/router';
+import { jsonpCallbackContext } from '@angular/common/http/src/module';
 
 @Component({
   selector: 'app-chooseReviewers',
@@ -16,28 +17,26 @@ export class ChooseReviewersComponent implements OnInit {
 
   public formFields: any[];
   private taskId;
+  public reviewerIds;
 
   ngOnInit() {
     this.taskId = this.route.snapshot.params['taskId'];
-    this.processService.getTaskForm(this.taskId).subscribe( (res : any) =>{
-      this.formFields = res.formFields;
-    })
   }
 
-  submit(value, form) {
-    console.log(value);
+  submit(){
+    console.log(this.reviewerIds);
+    console.log(this.reviewerIds.split(','));
 
-    let properties = new Array();
-    for (var property in value) {
-      properties.push({fieldId : property, fieldValue : value[property]});
-    }
+    console.log(JSON.stringify(this.reviewerIds.split(',')))
 
-    this.processService.submitTask(properties,this.taskId)
-      .subscribe( (res:any) => {
-        alert("Success!");
+    let body = { reviewers: this.reviewerIds.split(',')}
+    this.processService.submitTaskReviewers(body,this.taskId)
+      .subscribe( (res: any) => {
+        console.log(res);
       })
-
   }
+
+  
 
 
 }

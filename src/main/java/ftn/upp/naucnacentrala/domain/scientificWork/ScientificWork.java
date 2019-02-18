@@ -11,6 +11,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.util.Set;
 
+@Entity
 public class ScientificWork {
 
     @Id
@@ -51,6 +52,24 @@ public class ScientificWork {
 
     public ScientificWork() {
 
+    }
+
+    public ScientificWork(
+        final String title,
+        final String keywords,
+        final String abstractDescription,
+        final String pdf,
+        final ScientificField scientificField,
+        final User author,
+        final Magazine magazine
+    ) {
+        this.title = title;
+        this.keywords = keywords;
+        this.abstractDescription = abstractDescription;
+        this.pdf = pdf;
+        this.scientificField = scientificField;
+        this.author = author;
+        this.magazine = magazine;
     }
 
     public String getTitle() {

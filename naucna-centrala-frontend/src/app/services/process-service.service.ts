@@ -27,10 +27,14 @@ export class ProcessService {
   }
 
   submitTask(body:any, taskId:any) {
-
       return this.http.post(this.appUrl.concat("process/submitTask/" + taskId),body);
 
   }
+
+  submitTaskReviewers(body:any, taskId:any) {
+    return this.http.post(this.appUrl.concat("process/task/chooseReviewers/" + taskId),body);
+
+}
 
 
   getNextProcess(taskId: string) {

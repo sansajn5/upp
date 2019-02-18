@@ -148,6 +148,7 @@
       <bpmn:incoming>SequenceFlow_13zr4jc</bpmn:incoming>
       <bpmn:incoming>SequenceFlow_0syfwqi</bpmn:incoming>
       <bpmn:outgoing>SequenceFlow_1xn9of2</bpmn:outgoing>
+      <bpmn:multiInstanceLoopCharacteristics camunda:collection="${reviewers}" camunda:elementVariable="reviewerId" />
     </bpmn:userTask>
     <bpmn:boundaryEvent id="BoundaryEvent_0cligu1" attachedToRef="UserTask_0z7xivk">
       <bpmn:outgoing>SequenceFlow_0oab0yd</bpmn:outgoing>

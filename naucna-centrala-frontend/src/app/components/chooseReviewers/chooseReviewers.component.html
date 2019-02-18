@@ -1,6 +1,6 @@
 <h2>Choose reviewers</h2>
 
-<form #f="ngForm">
+<!-- <form #f="ngForm">
   <div *ngFor="let field of formFields" >
     <div class="labelinput">
         <label for={{field.id}}>{{field.label}}</label>
@@ -18,4 +18,7 @@
   </div>
   <button class="btn btn-primary" (click)="submit(f.value, f)"> Submit </button>
 
-</form>
+</form> -->
+
+<input type="text" [(ngModel)]="reviewerIds">
+<button class="btn btn-primary" (click)="submit()"> Submit </button>
